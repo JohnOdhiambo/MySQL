@@ -1,0 +1,73 @@
+DATABASE TESTING
+
+1. TRANSACTIONS
+These are the statements commonly used:
+
+BEGIN TRANSACTION TRANSACTION#
+END TRANSACTION TRANSACTION#
+The Rollback statement ensures that the database remains in a consistent state.
+
+ROLLBACK TRANSACTION#
+After these statements are executed, use a Select to make sure the changes have been reflected.
+
+SELECT * FROM TABLENAME <tables which involve the transactions>
+
+2. DATABASE SCHEMAS
+A Database Schema is nothing more than a formal definition of how the data is going to be organized inside a DB
+
+Identify the Requirements based on which the Database operates. Sample Requirements:
+Primary keys to be created before any other fields are created.
+Foreign keys should be completely indexed for easy retrieval and search.
+Field names starting or ending with certain characters.
+Fields with a constraint that certain values can or cannot be inserted.
+
+Use one of the following methods according to the relevance:
+SQL Query DESC<table name> to validate the schema.
+Regular expressions for validating the names of the individual fields and their values
+Tools like SchemaCrawler
+
+3. TRIGGERS
+When a certain event takes place on a certain table, a piece of code (a trigger) can be auto-instructed to be executed.
+For Example, a new student joined a school. The student is taking 2 classes: math and science. The student is added to the “student table”.  A Trigger could add the student to the corresponding subject tables once he is added to the student table.
+
+4. STORED PROCEDURES
+Stored Procedures are more or less similar to user-defined functions. These can be invoked by Call Procedure/Execute Procedure statements and the output is usually in the form of result sets.
+White box testing: Stubs are used to invoke the stored procedures and then the results are validated against the expected values.
+Black box testing: Perform an operation from the front end (UI) of the application and check for the execution of the stored procedure and its results.
+
+5. FIELD CONSTRAINTS
+The Default value, Unique value, and Foreign key:
+Perform a front-end operation which exercises the Database object condition
+Validate the results with a SQL Query.
+
+
+DATABASE TESTING ACTIVITIES
+1.Ensure Data Mapping:
+Table mapping, column mapping, and Data type mapping.
+Check whether the fields in the UI/frontend forms are mapped consistently with the corresponding fields in the DB table.  Typically this mapping information is defined in the requirements documents.
+Whenever a certain action is performed at the front end of an application, a corresponding CRUD (Create, Retrieve, Update and Delete) action gets invoked at the back end. A tester will have to check if the right action is invoked and whether the invoked action in itself is successful or not.
+
+2. Ensure ACID Properties of Transactions:‘Atomicity’, ‘Consistency’, ‘Isolation’ and ‘Durability’.
+Atomicity test will ensure any transaction performed on this table is all or none i.e. no records are updated if any step of the transaction is failed.
+
+Consistency test will ensure that whenever the value in column A or B is updated, the sum always remains 100. It won’t allow insertion/deletion/update in A or B if the total sum is anything other than 100.
+
+Isolation test will ensure that if two transactions are happening at the same time and trying to modify the data of the ACID test table, then these tractions are executing in isolation.
+
+Durability test will ensure that once a transaction over this table has been committed, it will remain so, even in the event of power loss, crashes, or errors.
+
+3. Ensure Data Integrity
+Consider that different modules (i.e. screens or forms) of application use the same data in different ways and perform all the CRUD operations on the data.
+Test cases for validating Database Data Integrity:
+
+Check if all the Triggers are in place to update reference table records.
+Check if any incorrect/invalid data exists in the major columns of each table.
+Try to insert wrong data in tables and observe if any failure occurs.
+Check what happens if you try to insert a child before inserting its parent (try to play with Primary and foreign keys).
+Test if any failure occurs if you delete a record that is still referenced by data in any other table.
+Check if replicated servers and databases are in sync.
+
+4. Ensure the Accuracy of the implemented Business Rules:
+Developers implement the business logic at the DB level. The tester must ensure that the implemented business logic is correct and works accurately.
+More complexity in Databases means more complicated components like relational constraints, triggers, stored procedures, etc. So testers will have to come up with appropriate SQL queries in order to validate these complex objects.
+
